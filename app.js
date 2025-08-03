@@ -1,8 +1,8 @@
 /********************************************************************************************************************
-* Objetivos: Adicionar tratamentos ao nomeUsuario, para não ser possivel deixar em branco ou digitar numeros
+* Objetivos: Adicionei o tratamento de no mínimo 3 caracteres, e descobri q o dos números não está funcionando corretamente
 * Autor: Guilherme Moreira
 * Data: 03/08/2025
-* Versão: 1.1
+* Versão: 1.2
  ********************************************************************************************************************/
 
 /** Formas de váriaveis
@@ -65,8 +65,8 @@ entradaDeDados.question('Digite o nome do aluno: ', function(nome){
     // recebe o call back e converte para MAIUSCULO
     let nomeAluno = String(nome).toUpperCase();
 
-        if(nomeAluno == '' || !isNaN(nomeAluno)){
-        console.log('ERRO: O nome deve conter apenas letras e não pode estar vazio.');
+        if(nomeAluno.length < 3 || !isNaN(nomeAluno)){ /* se digitar letras com numeros não funciona xd */
+        console.log('ERRO: O nome deve conter no mínimo 3 caracteres e somente números.');
         entradaDeDados.close();
         return; // encerra aqui se for inválido
     }
@@ -90,6 +90,7 @@ entradaDeDados.question('Digite o nome do aluno: ', function(nome){
 
                     if(nota1 == '' || nota2 == '' || nota3 == '' || nota4 == '' || nomeAluno == '' ){
                         console.log('ERRO: Existem campos que não foram preenchidos.')
+                        entradaDeDados.close();
                     }else if(isNaN(nota1) || isNaN(nota2) || isNaN(nota3) || isNaN(nota4)){ /* não é obigatóio colocar o == true, o if sozinho consegu entrar em qual é verdadeiro ou falso */
                         console.log('ERRO: Não é possivel calcular com a entrada de letras.')
                         entradaDeDados.close();
