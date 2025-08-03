@@ -1,10 +1,9 @@
 /********************************************************************************************************************
-* Objetivos: Realizar cálculos de médias escolares, trabalhando com entrada de dados, variaveis, e condicionais
+* Objetivos: Adicionar tratamentos ao nomeUsuario, para não ser possivel deixar em branco ou digitar numeros
 * Autor: Guilherme Moreira
-* Data: 01/08/2025
-* Versão: 1.0
+* Data: 03/08/2025
+* Versão: 1.1
  ********************************************************************************************************************/
-// import da biliotéca do readline
 
 /** Formas de váriaveis
  * LET -> permite criar um espaço em memória (variavel), deve-se obrigatoriamente utilizar apenas dentro de um bloco
@@ -52,7 +51,7 @@
  */
 
 
-
+// import da biliotéca do readline
 var readline = require('readline');
 
 //criando um objeto para entrada e saida de dados via terminal
@@ -63,9 +62,14 @@ var entradaDeDados = readline.createInterface({
 
 //entrada de dados do nome do aluno
 entradaDeDados.question('Digite o nome do aluno: ', function(nome){
-
     // recebe o call back e converte para MAIUSCULO
     let nomeAluno = String(nome).toUpperCase();
+
+        if(nomeAluno == '' || !isNaN(nomeAluno)){
+        console.log('ERRO: O nome deve conter apenas letras e não pode estar vazio.');
+        entradaDeDados.close();
+        return; // encerra aqui se for inválido
+    }
     
     //entrada de dados da nota1
     entradaDeDados.question('Digite a nota 1: ', function(valor1){
@@ -85,7 +89,7 @@ entradaDeDados.question('Digite o nome do aluno: ', function(nome){
                     
 
                     if(nota1 == '' || nota2 == '' || nota3 == '' || nota4 == '' || nomeAluno == '' ){
-                        console.log('ERRO: Existem campos que não foram precisos.')
+                        console.log('ERRO: Existem campos que não foram preenchidos.')
                     }else if(isNaN(nota1) || isNaN(nota2) || isNaN(nota3) || isNaN(nota4)){ /* não é obigatóio colocar o == true, o if sozinho consegu entrar em qual é verdadeiro ou falso */
                         console.log('ERRO: Não é possivel calcular com a entrada de letras.')
                         entradaDeDados.close();
