@@ -50,6 +50,11 @@
  * Não  NOT    !
  */
 
+//Padrão de mensagens de erro da aplicação
+const MESSAGE_ERROR_EMPTY        = 'ERRO: Existem campos que não foram preenchidos.'
+const MESSAGE_ERROR_NOT_NUMBER   = 'ERRO: Não é possivel calcular com a entrada de letras.'
+const MESSAGE_ERROR_OUT_OF_RANGE = 'ERRO: Os valores informados precisam ser entre 0 até 10.'
+
 
 //import da bibliotca que calcula a média
 var mediaEscolar = require('./modulo/media.js')
@@ -92,15 +97,15 @@ entradaDeDados.question('Digite o nome do aluno: ', function(nome){
                     
 
                     if(nota1 == '' || nota2 == '' || nota3 == '' || nota4 == '' || nomeAluno == '' ){
-                        console.log('ERRO: Existem campos que não foram preenchidos.')
+                        console.log(MESSAGE_ERROR_EMPTY)
                         entradaDeDados.close();
 
                     }else if(isNaN(nota1) || isNaN(nota2) || isNaN(nota3) || isNaN(nota4)){ /* não é obigatóio colocar o == true, o if sozinho consegu entrar em qual é verdadeiro ou falso */
-                        console.log('ERRO: Não é possivel calcular com a entrada de letras.')
+                        console.log(MESSAGE_ERROR_NOT_NUMBER)
                         entradaDeDados.close();
 
                     }else if(Number(nota1) < 0 || Number(nota1) > 10 || Number(nota2) < 0 || Number(nota2) > 10 || Number(nota3) < 0 || Number(nota3) > 10 || Number(nota4) < 0 || Number(nota4) > 10){
-                        console.log('ERRO: Os valores informados precisam ser entre 0 até 10.')
+                        console.log(MESSAGE_ERROR_OUT_OF_RANGE)
                         entradaDeDados.close();
                         
                     }else{
