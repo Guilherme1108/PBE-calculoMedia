@@ -51,6 +51,9 @@
  */
 
 
+//import da bibliotca que calcula a média
+var mediaEscolar = require('./modulo/media.js')
+
 // import da biliotéca do readline
 var readline = require('readline');
 
@@ -66,7 +69,7 @@ entradaDeDados.question('Digite o nome do aluno: ', function(nome){
     let nomeAluno = String(nome).toUpperCase();
 
         if(nomeAluno.length < 3 || !isNaN(nomeAluno)){ /* se digitar letras com numeros não funciona xd */
-        console.log('ERRO: O nome deve conter no mínimo 3 caracteres e somente números.');
+        console.log('ERRO: O nome deve conter no mínimo 3 caracteres e somente letras.');
         entradaDeDados.close();
         return; // encerra aqui se for inválido
     }
@@ -91,28 +94,26 @@ entradaDeDados.question('Digite o nome do aluno: ', function(nome){
                     if(nota1 == '' || nota2 == '' || nota3 == '' || nota4 == '' || nomeAluno == '' ){
                         console.log('ERRO: Existem campos que não foram preenchidos.')
                         entradaDeDados.close();
+
                     }else if(isNaN(nota1) || isNaN(nota2) || isNaN(nota3) || isNaN(nota4)){ /* não é obigatóio colocar o == true, o if sozinho consegu entrar em qual é verdadeiro ou falso */
                         console.log('ERRO: Não é possivel calcular com a entrada de letras.')
                         entradaDeDados.close();
+
                     }else if(Number(nota1) < 0 || Number(nota1) > 10 || Number(nota2) < 0 || Number(nota2) > 10 || Number(nota3) < 0 || Number(nota3) > 10 || Number(nota4) < 0 || Number(nota4) > 10){
                         console.log('ERRO: Os valores informados precisam ser entre 0 até 10.')
                         entradaDeDados.close();
+                        
                     }else{
-                        let media = (Number(nota1) + Number(nota2) + Number(nota3) + Number(nota4))/4
-                        let statusAluno;
+                        //chama a função para gerar a media
+                        let media = mediaEscolar.calcularMedia(nota1, nota2, nota3, nota4)
+                        //chama a função para validar os status d aluno
+                        let statusAluno = mediaEscolar.validarStatus(media)
 
-                        if(media < 5){
-                            statusAluno = 'REPROVADO'
-                        }else if(media >=5 && media < 7){
-                            statusAluno = 'DE RECUPERAÇÃO'
-                        }else if(media >=7 && media <= 10){
-                            statusAluno = 'APROVADO'
-                        };
-
-
-                        console.log(`O Aluno(a) ${nomeAluno} teve a média: ${media.toFixed(1)} e está: ${statusAluno}`);
-
-                        entradaDeDados.close(); /* fechando a aplicação */
+                        if(statusAluno){
+                            console.log(`O Aluno(a) ${nomeAluno} teve a média: ${media} e está: ${statusAluno}`);
+                            entradaDeDados.close(); /* fechando a aplicação */
+                        }
+                        
                     }
 
                 });//fechamento nota4
